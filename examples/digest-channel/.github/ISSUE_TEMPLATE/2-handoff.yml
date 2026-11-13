@@ -1,0 +1,79 @@
+name: Handoff
+description: "Transfer state or results"
+title: "[handoff] "
+labels: ["type:handoff"]
+body:
+  - type: markdown
+    attributes:
+      value: "Add one `from:` and at least one `to:` label after opening. See PROTOCOL.md §3."
+  - type: dropdown
+    id: from
+    attributes:
+      label: "From"
+      options: ["Dana", "Atlas", "Scout"]
+    validations:
+      required: true
+  - type: dropdown
+    id: to
+    attributes:
+      label: "To"
+      multiple: true
+      options: ["Dana", "Atlas", "Scout"]
+    validations:
+      required: true
+  - type: input
+    id: sent
+    attributes:
+      label: "Sent"
+      description: "YYYY-MM-DD HH:MM America/Toronto"
+    validations:
+      required: true
+  - type: input
+    id: re
+    attributes:
+      label: "Re"
+      description: "Related issues, files or identifiers, or 'none'"
+    validations:
+      required: true
+  - type: dropdown
+    id: needs
+    attributes:
+      label: "Needs"
+      options: [nothing, reply, action]
+    validations:
+      required: true
+  - type: input
+    id: due
+    attributes:
+      label: "Due"
+      description: "YYYY-MM-DD or 'none'"
+    validations:
+      required: true
+  - type: input
+    id: basis
+    attributes:
+      label: "Basis"
+      description: "Instruction files acted under, with versions, e.g. playbooks/example.md@3"
+    validations:
+      required: false
+  - type: textarea
+    id: section0
+    attributes:
+      label: "What changed"
+      description: "Decisions, replies received, records written."
+    validations:
+      required: true
+  - type: textarea
+    id: section1
+    attributes:
+      label: "Pending"
+      description: "Open items, each with an identifier the recipient can look up."
+    validations:
+      required: true
+  - type: textarea
+    id: section2
+    attributes:
+      label: "Evidence"
+      description: "Quoted text, a message subject with its date, or links."
+    validations:
+      required: false

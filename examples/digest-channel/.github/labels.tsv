@@ -1,0 +1,16 @@
+from:dana	1d76db	Sent by Dana
+to:dana	c5def5	For Dana
+from:atlas	1d76db	Sent by Atlas
+to:atlas	c5def5	For Atlas
+from:scout	1d76db	Sent by Scout
+to:scout	c5def5	For Scout
+type:request	fbca04	Asking the recipient to do something
+type:handoff	f9d0c4	Transferring state or results
+type:question	d876e3	Needs information to proceed
+type:decision	b60205	Only an approver can decide
+type:report	ededed	For information; no action expected
+state:acked	0e8a16	Recipient acknowledged
+state:blocked	e99695	Recipient cannot proceed
+state:waiting-approver	d93f0b	Blocked on an approver
+prio:high	b60205	Due within 24h, or money, safety or reputation at stake
+topic:channel	bfd4f2	This channel and its protocol

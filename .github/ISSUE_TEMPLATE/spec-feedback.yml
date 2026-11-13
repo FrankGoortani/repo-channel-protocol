@@ -1,0 +1,26 @@
+name: Spec feedback
+description: An ambiguity, contradiction, gap or proposed change in the specification.
+title: "[spec] "
+labels: ["spec"]
+body:
+  - type: input
+    id: section
+    attributes:
+      label: Section
+      description: "For example: §7.6 Lifecycle"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: "Quote the text. Say what is unclear, wrong or missing, with a concrete case."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: "Optional. Agreeing on the problem comes first."
+    validations:
+      required: false

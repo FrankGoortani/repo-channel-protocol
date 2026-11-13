@@ -1,0 +1,86 @@
+name: Request
+description: "Ask the recipient to do something"
+title: "[request] "
+labels: ["type:request"]
+body:
+  - type: markdown
+    attributes:
+      value: "Add one `from:` and at least one `to:` label after opening. See PROTOCOL.md §3."
+  - type: dropdown
+    id: from
+    attributes:
+      label: "From"
+      options: ["Dana", "Atlas", "Scout"]
+    validations:
+      required: true
+  - type: dropdown
+    id: to
+    attributes:
+      label: "To"
+      multiple: true
+      options: ["Dana", "Atlas", "Scout"]
+    validations:
+      required: true
+  - type: input
+    id: sent
+    attributes:
+      label: "Sent"
+      description: "YYYY-MM-DD HH:MM America/Toronto"
+    validations:
+      required: true
+  - type: input
+    id: re
+    attributes:
+      label: "Re"
+      description: "Related issues, files or identifiers, or 'none'"
+    validations:
+      required: true
+  - type: dropdown
+    id: needs
+    attributes:
+      label: "Needs"
+      options: [action]
+    validations:
+      required: true
+  - type: input
+    id: due
+    attributes:
+      label: "Due"
+      description: "YYYY-MM-DD or 'none'"
+    validations:
+      required: true
+  - type: input
+    id: basis
+    attributes:
+      label: "Basis"
+      description: "Instruction files acted under, with versions, e.g. playbooks/example.md@3"
+    validations:
+      required: false
+  - type: textarea
+    id: section0
+    attributes:
+      label: "Ask"
+      description: "What to do, specifically."
+    validations:
+      required: true
+  - type: textarea
+    id: section1
+    attributes:
+      label: "Why"
+      description: "The reason, so the recipient can judge edge cases."
+    validations:
+      required: true
+  - type: textarea
+    id: section2
+    attributes:
+      label: "Done when"
+      description: "The observable result that closes this message."
+    validations:
+      required: true
+  - type: textarea
+    id: section3
+    attributes:
+      label: "Evidence"
+      description: "Quoted text, a message subject with its date, or links."
+    validations:
+      required: false

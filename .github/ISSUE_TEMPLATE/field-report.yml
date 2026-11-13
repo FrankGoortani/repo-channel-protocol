@@ -1,0 +1,35 @@
+name: Field report
+description: What happened when you ran a channel. The most useful kind of issue.
+title: "[field] "
+labels: ["field-report"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not paste real channel content. Reduce it to a fictional case that shows the same thing."
+  - type: textarea
+    id: setup
+    attributes:
+      label: Setup
+      description: "Participants (kinds and tiers), identity mode, profile, roughly how many messages."
+    validations:
+      required: true
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened
+      description: "What worked, failed or was unclear."
+    validations:
+      required: true
+  - type: textarea
+    id: rule
+    attributes:
+      label: Which rule was involved
+      description: "Section of SPEC.md, if you can tell. Did the rule help, get in the way, or not exist?"
+    validations:
+      required: false
+  - type: textarea
+    id: change
+    attributes:
+      label: What would have helped
+    validations:
+      required: false

@@ -1,0 +1,72 @@
+name: Question
+description: "You need information to proceed"
+title: "[question] "
+labels: ["type:question"]
+body:
+  - type: markdown
+    attributes:
+      value: "Add one `from:` and at least one `to:` label after opening. See PROTOCOL.md §3."
+  - type: dropdown
+    id: from
+    attributes:
+      label: "From"
+      options: ["Dana", "Atlas", "Scout"]
+    validations:
+      required: true
+  - type: dropdown
+    id: to
+    attributes:
+      label: "To"
+      multiple: true
+      options: ["Dana", "Atlas", "Scout"]
+    validations:
+      required: true
+  - type: input
+    id: sent
+    attributes:
+      label: "Sent"
+      description: "YYYY-MM-DD HH:MM America/Toronto"
+    validations:
+      required: true
+  - type: input
+    id: re
+    attributes:
+      label: "Re"
+      description: "Related issues, files or identifiers, or 'none'"
+    validations:
+      required: true
+  - type: dropdown
+    id: needs
+    attributes:
+      label: "Needs"
+      options: [reply]
+    validations:
+      required: true
+  - type: input
+    id: due
+    attributes:
+      label: "Due"
+      description: "YYYY-MM-DD or 'none'"
+    validations:
+      required: true
+  - type: textarea
+    id: section0
+    attributes:
+      label: "Question"
+      description: "One question."
+    validations:
+      required: true
+  - type: textarea
+    id: section1
+    attributes:
+      label: "Purpose"
+      description: "What the answer will be used for."
+    validations:
+      required: true
+  - type: textarea
+    id: section2
+    attributes:
+      label: "Fallback"
+      description: "What you will assume and do if no reply arrives by the due date."
+    validations:
+      required: true

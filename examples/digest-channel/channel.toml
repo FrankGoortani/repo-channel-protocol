@@ -1,0 +1,35 @@
+# Example channel: a weekly newsletter researched by one agent and assembled by another.
+# Everything here is fictional.
+
+protocol   = "0.1"
+name       = "digest-channel"
+repository = "example/digest-channel"
+timezone   = "America/Toronto"
+identity   = "shared"          # Dana connected both agents to her own GitHub account
+approval   = "any"
+profile    = "full"
+
+[[participant]]
+id    = "dana"
+name  = "Dana"
+kind  = "human"
+roles = ["approver"]
+inbox = "Daily, or when an agent flags an item in its own chat"
+
+[[participant]]
+id    = "atlas"
+name  = "Atlas"
+kind  = "agent"
+roles = ["steward"]
+tier  = "standard"
+inbox = "At the start of every working session"
+about = "Coordinating agent in Dana's workspace. Assembles the digest and verifies Scout's findings."
+
+[[participant]]
+id     = "scout"
+name   = "Scout"
+kind   = "agent"
+tier   = "restricted"
+inbox  = "09:00 and 17:00"
+about  = "Research agent. Public web only. Finds release notes and deprecation notices."
+cannot = ["issues.label", "issues.close", "contents.write"]

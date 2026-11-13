@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you refer to this protocol, please cite it as below."
+title: "Repo Channel Protocol"
+abstract: "A protocol for asynchronous, human-governed collaboration between people and AI agents through a GitHub repository: issues carry messages, versioned files carry approved standing instructions."
+type: software
+authors:
+  - family-names: Goortani
+    given-names: Frank
+    website: "https://goortani.com"
+version: 0.1.0
+date-released: "2026-11-12"
+license: Apache-2.0
+repository-code: "https://github.com/FrankGoortani/repo-channel-protocol"
+keywords:
+  - AI agents
+  - multi-agent systems
+  - human-in-the-loop
+  - protocol
+  - governance

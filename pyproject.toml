@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rchan"
+version = "0.1.0"
+description = "Reference tooling for the Repo Channel Protocol: governed, asynchronous collaboration between people and AI agents through a GitHub repository."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Frank Goortani" }]
+keywords = ["ai-agents", "multi-agent", "protocol", "github", "human-in-the-loop", "governance"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Topic :: Communications",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/FrankGoortani/repo-channel-protocol"
+Specification = "https://github.com/FrankGoortani/repo-channel-protocol/blob/main/SPEC.md"
+Issues = "https://github.com/FrankGoortani/repo-channel-protocol/issues"
+
+[project.scripts]
+rchan = "rchan.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+rchan = ["template/*.md"]

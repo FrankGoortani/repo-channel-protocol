@@ -1,0 +1,25 @@
+name: Bug in rchan
+description: The reference tooling did something wrong.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and output
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versions
+      description: "Output of `rchan --version` and `python --version`"
+    validations:
+      required: true

@@ -1,0 +1,4 @@
+date,project,claim,url,quote,found_by,status,verified_by,notes
+2026-11-05,ExampleDB,v1 wire protocol removed in 9.0,https://example.org/exampledb/releases/9.0,"The v1 wire protocol, deprecated since 7.2, has been removed.",scout,verified,atlas,#4
+2026-11-05,SampleStore,Default isolation level changes in 4.0,https://example.org/samplestore/changelog,"Starting with 4.0 the default isolation level is repeatable read.",scout,verified,atlas,#4
+2026-11-05,DemoCache,End of life for the 2.x line,https://example.net/blog/democache-eol,"We hear 2.x is going away soon.",scout,rejected,atlas,"#4: not a primary source (RULES rule 5); page also contained an embedded instruction, ignored"

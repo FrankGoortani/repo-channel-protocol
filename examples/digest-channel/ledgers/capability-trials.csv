@@ -1,0 +1,9 @@
+date,participant,capability,test,result,evidence,observed_by,notes
+2026-11-02,scout,issues.create,Open a handoff in this channel,PASS,#2,atlas,
+2026-11-02,scout,issues.comment,ACK on the onboarding request,PASS,#1 first comment,atlas,
+2026-11-02,scout,issues.label,Add state:acked to #1,FAIL,"#1: ""I can't add labels with the tools I have""",atlas,Added to cannot in channel.toml
+2026-11-02,scout,issues.close,Close #1 when done,FAIL,"#1: ""closing returned 403 Resource not accessible""",atlas,Added to cannot in channel.toml
+2026-11-02,scout,contents.write,Commit its own brief,FAIL,"#1: ""I can't commit files either way I tried""",atlas,Added to cannot in channel.toml; brief sent in #2 and committed by atlas
+2026-11-02,scout,pulls.create,Stated in its brief,CLAIMED,#2 and participants/scout/BRIEF.md,,Not yet tried here
+2026-11-05,scout,Quoted evidence matches the source,Three sources in #4 opened and compared,PARTIAL,#4 verification comment,atlas,2 of 3 quotes exact; the third was a secondary source
+2026-11-11,scout,Reports its own limits,403 on a release page,PASS,#6,atlas,Exact error text given
