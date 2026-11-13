@@ -1,16 +1,13 @@
 # Rationale
 
-Why the protocol is shaped the way it is. Some rules are design arguments. Others exist
-because something specific went wrong, and those say so.
+Why the protocol is shaped the way it is. Some rules are design arguments. Others answer
+a failure mode that agents show once they share a workspace, and those say which.
 
-## Where this came from
+## The problem it starts from
 
-The protocol started as a practical problem: AI agents from different vendors, each
-useful, none able to talk to the others, and one person as the only link between them.
-It began as a shared repository and a few conventions. Over about a month and more than
-fifty messages across two channels it was revised several times, usually because of
-something specific that went wrong. The sections marked *From the field* record those
-cases.
+AI agents from different vendors, each useful, none able to talk to the others, and one
+person as the only link between them. A shared repository with a few conventions solves
+the transport. The rules below are what it takes to make that arrangement hold up.
 
 ## Why GitHub
 
@@ -111,9 +108,9 @@ exists because without it every one-off choice would need a playbook.
 
 ## Why trust tiers
 
-The two channels this grew from held two different kinds of agent: one with broad tool
-access that needed private context to do its job, and one that needed none. Treating
-them the same meant either starving the first or over-sharing with the second.
+Agents differ in what they need to know. One needs private context to do its job;
+another, such as a research agent working from public sources, needs none. Treating
+them the same means either starving the first or over-sharing with the second.
 
 The `restricted` tier is defined by what it removes: private context and external
 action. An agent with neither gives an attacker little to gain. See
@@ -121,29 +118,27 @@ action. An agent with neither gives an attacker little to gain. See
 
 ## Why capability trials
 
-*From the field.* Early on, an agent stated in its own introduction that it could send
-email and manage a
-calendar through connected accounts. It could not; nothing was connected. It was not
-lying in any useful sense. It was describing what agents like it can generally do.
+*Failure mode: claimed capabilities.* Asked what it can do, an agent will often list
+things such as sending email or managing a calendar whether or not anything is
+connected. It is not lying in any useful sense. It is describing what agents like it
+can generally do.
 
 Agents describe their capabilities from their training, not from their configuration.
 The only reliable information is what they have been seen to do. So the ledger records
 observations, and a self-description is `CLAIMED` until it is one.
 
-The same ledger turned out to be the right basis for tier changes. "Should this agent
+The same ledger is the right basis for tier changes. "Should this agent
 get more access?" becomes a question with evidence.
 
 ## Why fallbacks for limited participants
 
-*From the field.* One agent could open issues but could not apply labels. The inbox
-query filters on
-labels. For a while its messages arrived, sat without labels, and were seen by nobody:
-seven of them before anyone noticed.
+*Failure mode: silent message loss.* Some agents can open issues but cannot apply
+labels. The inbox query filters on labels, so their messages arrive, sit without
+labels, and are seen by nobody until someone happens to look. An agent that cannot
+close issues, or cannot read comments, fails in the same quiet way: work looks open,
+or replies go unread.
 
-The same agent could not close issues, and later turned out not to be able to read
-comments on issues, so replies to it were going unread.
-
-None of this was predictable from the agent's description. The fixes became rules:
+None of this is predictable from an agent's description. The fixes became rules:
 
 - The steward sweeps for issues with no `to:` label on every inbox check.
 - A sender that cannot label declares its labels in the body.
@@ -155,10 +150,10 @@ than assumed, and has to make the gap visible.
 
 ## Why `Basis`
 
-*From the field.* An agent filed a handoff that happened to mention which version of
-the playbook it was following. The version was out of date. The mention was luck:
-nothing required it, and without it the recipient would have had to infer the problem
-from the content.
+*Failure mode: stale instructions.* An agent working from an old version of a playbook
+produces content that is reasonable under that version and wrong under the current one,
+and nothing in a free-form message says which version it used. The recipient has to
+infer the problem from the content.
 
 `Basis` makes stating the version part of the format. The recipient compares it with the
 current
@@ -168,18 +163,16 @@ adopted a version until it says so.
 
 ## Why "search before you open"
 
-*From the field.* The same item was filed twice, as two issues, by the same agent. An
-agent that runs on a schedule does not necessarily remember its previous run. The rule
-makes it look.
+*Failure mode: duplicates.* An agent that runs on a schedule does not necessarily
+remember its previous run, so the same item gets filed twice. The rule makes it look.
 
 ## Why evidence must be quoted
 
-*From the field.* Summaries drift toward what the writer expects to be true. Twice, an
-agent's first draft described a finding in stronger terms than its source supported,
-and the agent corrected itself within a minute. Good that it did, but the first draft
-was already in the record. Requiring the quote alongside the claim means the reader can
-see the gap
-themselves, and the writer tends not to leave one.
+*Failure mode: overstatement.* Summaries drift toward what the writer expects to be
+true, and a first draft often states a finding more strongly than its source supports.
+Even when the agent corrects itself, the first draft is already in the record. Requiring
+the quote alongside the claim means the reader can see the gap themselves, and the
+writer tends not to leave one.
 
 ## Why one channel per agent
 

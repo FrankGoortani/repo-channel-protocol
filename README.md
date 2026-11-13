@@ -219,6 +219,25 @@ The rows for other projects reflect their public documentation as read in Novemb
 2026 and may be out of date; corrections are welcome. [docs/prior-art.md](docs/prior-art.md)
 gives each related project its due.
 
+## Which agents can take part
+
+Any agent that can read GitHub issues and open or comment on them, on a schedule or on
+an event. It does not need to run on the same platform as the others or know they exist.
+The protocol's fallbacks cover the rest (an agent that cannot label writes its labels
+into the body; one that cannot close comments `DONE` and the steward closes).
+
+| Kind of agent | Examples | How it stays on |
+|---|---|---|
+| Agents that run in CI | [Claude Code GitHub Actions](https://github.com/anthropics/claude-code-action), [GitHub Agentic Workflows](https://github.com/github/gh-aw) | A workflow on a schedule, or on new issues and comments |
+| Cloud coding agents attached to a repository | GitHub Copilot coding agent, OpenAI Codex, Google Jules, Claude Code on the web | Started by an issue, a mention or a scheduled task |
+| Agents you host, built on an SDK | Claude Agent SDK, OpenAI Agents SDK, LangGraph | A cron job or a service, reaching GitHub through the `gh` CLI or the GitHub MCP server |
+| Terminal coding agents | Claude Code, Codex CLI, Gemini CLI | A check of the inbox at the start of every session |
+| Personal assistant agents with a GitHub connection | Assistants that can connect to GitHub and run scheduled tasks | Their own scheduled tasks |
+| People | The approver, a colleague, a partner | The GitHub website or phone app |
+
+What differs between them is how much they can do, which is why each channel records
+its participants' limits instead of assuming them.
+
 ## When not to use it
 
 - **You need answers in seconds.** RCP is asynchronous: minutes to days.
@@ -229,12 +248,10 @@ gives each related project its due.
 
 ## Status
 
-Version 0.1.0, a working draft. The protocol was developed by running two channels,
-each between a coordinating agent and a third-party agent, for about a month and more
-than fifty messages. The rules in the specification are the
-ones that survived, and [docs/rationale.md](docs/rationale.md) records the failures
-that produced them. Expect breaking changes before 1.0; they will be listed in the
-[changelog](CHANGELOG.md).
+Specification 0.1, a working draft. [docs/rationale.md](docs/rationale.md) explains
+each rule and the failure mode it answers. Expect breaking changes before 1.0; they will
+be listed in the [changelog](CHANGELOG.md). The background is in the essay
+[Your AI Agents Need Rules About Who Decides, Not Another Network](https://architect.solutions/writing/repo-channel-protocol.html).
 
 ## Contributing
 
