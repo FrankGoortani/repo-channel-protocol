@@ -260,6 +260,48 @@ class ChannelTests(unittest.TestCase):
             self.assertIn(label + "\t", labels)
         self.assertFalse((self.dir / ".github/CODEOWNERS").exists())
 
+    def test_protocol_file_follows_the_profile(self):
+        def protocol(profile):
+            text = MANIFEST.replace('identity = "shared"', f'identity = "shared"\nprofile = "{profile}"')
+            return render.generated(manifest.parse(text))["PROTOCOL.md"]
+        core, governed, full = protocol("core"), protocol("governed"), protocol("full")
+        for text in (core, governed, full):
+            self.assertNotIn("<!-- if:", text)
+            self.assertNotIn("<!-- endif", text)
+            self.assertNotIn("\n\n\n", text)
+            self.assertIn("**Silence is not approval.**", text)
+            self.assertIn("## 7. Capability trials", text)
+        self.assertIn("follows the `core` profile", core)
+        self.assertNotIn("approved_on:", core)
+        self.assertNotIn("### Trust tiers", core)
+        self.assertIn("approved_on:", governed)
+        self.assertNotIn("### Trust tiers", governed)
+        self.assertIn("Not part of this channel's profile (`governed`)", governed)
+        self.assertIn("### Trust tiers", full)
+        self.assertIn("### If you belong to more than one channel", full)
+        self.assertNotIn("Not part of this channel's profile", full)
+
+    def test_starting_files_follow_the_profile(self):
+        def owned(profile):
+            text = MANIFEST.replace('identity = "shared"', f'identity = "shared"\nprofile = "{profile}"')
+            return set(render.owned(manifest.parse(text)))
+        self.assertEqual(owned("core"), {"README.md"})
+        self.assertIn("shared/RULES.md", owned("governed"))
+        self.assertNotIn("ledgers/capability-trials.csv", owned("governed"))
+        self.assertIn("ledgers/capability-trials.csv", owned("full"))
+        with tempfile.TemporaryDirectory() as tmp:
+            text = MANIFEST.replace('identity = "shared"', 'identity = "shared"\nprofile = "core"')
+            Path(tmp, "channel.toml").write_text(text)
+            render.write(tmp, manifest.parse(text))
+            self.assertEqual(channel.lint(tmp), ([], []))
+
+    def test_template_conditions_are_checked(self):
+        self.assertEqual(render.apply_profile("a\n<!-- if:full -->\nb\n<!-- endif -->\nc\n", "core"), "a\nc\n")
+        with self.assertRaises(ValueError):
+            render.apply_profile("<!-- if:sometimes -->\nb\n<!-- endif -->\n", "full")
+        with self.assertRaises(ValueError):
+            render.apply_profile("<!-- if:full -->\nb\n", "full")
+
     def test_distinct_mode_writes_codeowners_for_approvers_only(self):
         text = MANIFEST.replace('identity = "shared"', 'identity = "distinct"')
         for pid in ("dana", "atlas", "scout"):

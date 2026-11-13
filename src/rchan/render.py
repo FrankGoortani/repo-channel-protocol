@@ -10,6 +10,7 @@ Two kinds of file:
 from __future__ import annotations
 
 import json
+import re
 from importlib import resources
 from pathlib import Path
 
@@ -164,6 +165,7 @@ def _protocol_md(m: Manifest) -> str:
         "APPROVAL_RULE": approval_rule,
         "STEWARD": m.steward.name,
         "ALL_APPROVERS": " (every approver, in this channel)" if all_must else "",
+        "ALL_APPROVERS_CORE": ", and every approver must agree" if all_must else "",
         "ALL_APPROVERS_STEP": (" In this channel every approver must approve: each adds its own "
                                "id to `approved_by` on the proposal branch, and the last one sets "
                                "`status: active` and `approved_on`, and merges." if all_must else ""),
@@ -174,9 +176,35 @@ def _protocol_md(m: Manifest) -> str:
         "EXAMPLE_TO": example_to.name,
         "EXAMPLE_APPROVER_ID": approvers[0].id,
     }
+    template = apply_profile(template, m.profile)
     for key, value in replacements.items():
         template = template.replace("{{" + key + "}}", value)
     return "\n".join(line.rstrip() for line in template.splitlines()) + "\n"
+
+
+_CONDITION = re.compile(r"<!-- if:([a-z-]+) -->\n(.*?)<!-- endif -->\n", re.S)
+_SHOWN = {
+    "governed": ("governed", "full"),
+    "full": ("full",),
+    "core-only": ("core",),
+    "not-full": ("core", "governed"),
+}
+
+
+def apply_profile(template: str, profile: str) -> str:
+    """Keep the template blocks that apply to this profile and drop the rest.
+
+    Blocks are ``<!-- if:NAME -->`` ... ``<!-- endif -->`` on lines of their own, not nested.
+    """
+    def keep(match: re.Match) -> str:
+        name = match.group(1)
+        if name not in _SHOWN:
+            raise ValueError(f"unknown template condition: {name}")
+        return match.group(2) if profile in _SHOWN[name] else ""
+    out = _CONDITION.sub(keep, template)
+    if "<!-- if:" in out or "<!-- endif -->" in out:
+        raise ValueError("unbalanced condition in the PROTOCOL.md template")
+    return re.sub(r"\n{3,}", "\n\n", out)
 
 
 def _join(items: list[str]) -> str:
@@ -299,6 +327,11 @@ def owned(m: Manifest) -> dict[str, str]:
     }
     for p in m.participants:
         files[f"participants/{p.id}/BRIEF.md"] = _brief(p, m)
+    # Only what the profile uses: core channels keep their own rules and records.
+    if m.profile == "core":
+        return {"README.md": files["README.md"]}
+    if m.profile == "governed":
+        del files["ledgers/capability-trials.csv"]
     return files
 
 
