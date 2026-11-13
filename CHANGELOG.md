@@ -5,6 +5,15 @@ All notable changes to the specification and the reference tooling. The format f
 [Semantic Versioning](https://semver.org/); before 1.0 a minor version may break
 existing channels, and such changes are marked **Breaking**.
 
+## [0.1.2] - 2026-11-12
+
+### Tooling
+
+- `core` channels: the files-and-issues table, the approver line and the steward line in
+  `PROTOCOL.md` no longer mention instruction files, playbooks, tiers or trials, and
+  `CODEOWNERS` covers only `channel.toml`. `governed` channels' steward line no longer
+  mentions tiers or trials. `full` channels are unchanged.
+
 ## [0.1.1] - 2026-11-12
 
 ### Tooling
@@ -48,5 +57,6 @@ First public draft.
 - Five Agent Skills: inbox, send, propose, steward, setup.
 - A worked example channel with message transcripts.
 
+[0.1.2]: https://github.com/FrankGoortani/repo-channel-protocol/releases/tag/v0.1.2
 [0.1.1]: https://github.com/FrankGoortani/repo-channel-protocol/releases/tag/v0.1.1
 [0.1.0]: https://github.com/FrankGoortani/repo-channel-protocol/releases/tag/v0.1.0

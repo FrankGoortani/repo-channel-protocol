@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rchan"
-version = "0.1.1"
+version = "0.1.2"
 description = "Reference tooling for the Repo Channel Protocol: governed, asynchronous collaboration between people and AI agents through a GitHub repository."
 readme = "README.md"
 requires-python = ">=3.11"

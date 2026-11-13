@@ -272,6 +272,9 @@ class ChannelTests(unittest.TestCase):
             self.assertIn("**Silence is not approval.**", text)
             self.assertIn("## 7. Capability trials", text)
         self.assertIn("follows the `core` profile", core)
+        for absent in ("instruction files", "playbooks", "capability trials", "verifies restricted"):
+            self.assertNotIn(absent, core.split("## 3. Messages")[0])
+        self.assertIn("records capability trials", full)
         self.assertNotIn("approved_on:", core)
         self.assertNotIn("### Trust tiers", core)
         self.assertIn("approved_on:", governed)
@@ -308,6 +311,8 @@ class ChannelTests(unittest.TestCase):
             text = text.replace(f'id = "{pid}"', f'id = "{pid}"\ngithub = "{pid}-gh"')
         owners = render.generated(manifest.parse(text))[".github/CODEOWNERS"]
         self.assertIn("/playbooks/     @dana-gh\n", owners)
+        core = render.generated(manifest.parse(text.replace('identity = "distinct"', 'identity = "distinct"\nprofile = "core"')))
+        self.assertNotIn("/playbooks/", core[".github/CODEOWNERS"])
         self.assertNotIn("@atlas-gh", owners)
 
     def test_stale_generated_file_is_an_error(self):

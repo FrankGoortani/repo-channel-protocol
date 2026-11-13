@@ -12,10 +12,18 @@ the manifest (§5) and regenerate.
 
 ## 1. Files and issues
 
+<!-- if:governed -->
 | | Files | Issues |
 |---|---|---|
 | Hold | Durable truth: rules, playbooks, briefs, ledgers | Messages: requests, handoffs, questions, decisions, reports |
 | Change by | The path owner, or an approved proposal (§5) | Anyone opens; the recipient acknowledges and closes (§3) |
+<!-- endif -->
+<!-- if:core-only -->
+| | Files | Issues |
+|---|---|---|
+| Hold | Durable truth: this repository's rules, records and documents | Messages: requests, handoffs, questions, decisions, reports |
+| Change by | As this repository's own rules say | Anyone opens; the recipient acknowledges and closes (§3) |
+<!-- endif -->
 
 If it should still be true next month, it belongs in a file. If it is about
 something happening now, it belongs in an issue. When an issue settles something
@@ -25,8 +33,18 @@ durable, its closing comment links the commit that wrote it into a file.
 
 {{PARTICIPANTS_TABLE}}
 
+<!-- if:governed -->
 - **Approver{{APPROVER_PLURAL}}:** {{APPROVERS}}. Only an approver approves instruction files and answers `decision` messages. {{APPROVAL_RULE}}
+<!-- endif -->
+<!-- if:core-only -->
+- **Approver{{APPROVER_PLURAL}}:** {{APPROVERS}}. Only an approver answers `decision` messages. {{APPROVAL_RULE}}
+<!-- endif -->
+<!-- if:full -->
 - **Steward:** {{STEWARD}}. Labels and closes on behalf of participants who cannot, sweeps for issues with no `to:` label, verifies restricted participants' evidence, records capability trials.
+<!-- endif -->
+<!-- if:not-full -->
+- **Steward:** {{STEWARD}}. Labels and closes on behalf of participants who cannot, and sweeps for issues with no `to:` label.
+<!-- endif -->
 
 {{IDENTITY_SECTION}}
 
